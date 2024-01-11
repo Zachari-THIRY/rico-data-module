@@ -7,8 +7,8 @@ This repository contains the data module for the RICO project from SINTEF. The m
 Instructions on how to install the project, for example:
 
 ```bash
-git clone https://github.com/username/project.git
-cd project
+git clone https://github.com/Zachari-THIRY/rico-data-module.git
+cd rico-data-module
 conda env create -f environment.yml
 ```
 This will create a conda environment with the name rico_data. To activate the environment, run the following command:
