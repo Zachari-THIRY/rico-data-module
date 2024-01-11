@@ -7,5 +7,4 @@ setup(
     author='Zachari THIRY',
     author_email='zachari.thiry@gmail.com',
     packages=find_packages(),
-    install_requires=['numpy', 'pandas', 'pytables', 'torch', 'torchtyping'],  # List your package's dependencies here
 )
