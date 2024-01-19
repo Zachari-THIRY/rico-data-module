@@ -2,6 +2,8 @@ from numpy import dtype
 import torch
 import pandas as pd
 
+from sklearn.preprocessing import StandardScaler
+
 from typing import Tuple, List
 from torchtyping import TensorType
 from .types import DatasetParams
@@ -19,6 +21,26 @@ class BaseDataset():
         """
         # Sets self.data, and self.name
         raise NotImplementedError
+    
+    def standardize(self):
+        """
+        Standardize the dataset
+        """
+        self.assert_initialized()
+        condition = self.data.dim() == 2 or (self.data.dim() == 3 and self.data.shape[-1] == 1)
+        assert condition, "Dataset must be 2D or 3D with 1 channel"
+        if self.data.dim() == 3:
+            self.data = self.data.squeeze(-1)
+        self.scaler = StandardScaler()
+        self.data = torch.tensor(self.scaler.fit_transform(self.data), dtype=torch.float32)
+        self.data = self.data.unsqueeze(-1)
+    
+    def get_scaler(self):
+        """
+        Return the scaler used to standardize the dataset
+        """
+        self.assert_initialized()
+        return self.scaler
     
     def merge(self, dataset:'BaseDataset', name:str):
         """
